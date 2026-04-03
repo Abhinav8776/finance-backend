@@ -12,10 +12,10 @@ import java.util.List;
 public class FinancialRecordService {
 
     private final FinancialRecordRepository repository;
-    //create record in db
+    //saves new  record in db
     public FinancialRecord create(FinancialRecord record){  return repository.save(record);
     }
-    //retrive from db
+    //retrives financial data from db
     public List<FinancialRecord> getAll(){
         return repository.findAll();
     }
