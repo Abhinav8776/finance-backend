@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/records")
@@ -44,5 +46,20 @@ public class FinancialRecordController {
     @GetMapping("/date/{date}")
     public List<FinancialRecord> getByDate(@PathVariable String date) {
         return service.getByDate(LocalDate.parse(date));
+    }
+    //dash board summary
+    @GetMapping("/summary")
+    public Map<String, Double> getSummary() {
+
+        double income = service.getTotalIncome();
+        double expense = service.getTotalExpense();
+        double balance = service.getNetBalance();
+
+        Map<String, Double> response = new HashMap<>();
+        response.put("totalIncome", income);
+        response.put("totalExpense", expense);
+        response.put("netBalance", balance);
+
+        return response;
     }
 }

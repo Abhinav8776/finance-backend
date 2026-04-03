@@ -35,4 +35,20 @@ public class FinancialRecordService {
     public List<FinancialRecord> getByDate(LocalDate date) {
         return repository.findByDate(date);
     }
-}
+    //using stream to get the sum of income
+    public double getTotalIncome(){
+        return repository.findAll().stream()
+                .filter(r -> r.getType().equalsIgnoreCase("INCOME"))
+                .mapToDouble(FinancialRecord::getAmount)
+                .sum();
+     }
+    public double getTotalExpense(){
+        return repository.findAll().stream()
+                .filter(r -> r.getType().equalsIgnoreCase("EXPENSE"))
+                .mapToDouble(FinancialRecord::getAmount)
+                .sum();
+     }
+    public double getNetBalance() {
+        return getTotalIncome() - getTotalExpense();
+    }
+ }
