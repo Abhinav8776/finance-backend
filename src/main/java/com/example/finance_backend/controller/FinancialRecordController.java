@@ -1,6 +1,7 @@
 package com.example.finance_backend.controller;
 import com.example.finance_backend.entity.FinancialRecord;
 import com.example.finance_backend.service.FinancialRecordService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class FinancialRecordController {
     private final FinancialRecordService service;
    // create new financial record
     @PostMapping
-    public FinancialRecord create(@RequestBody FinancialRecord record) {
+    public FinancialRecord create(@Valid @RequestBody FinancialRecord record) {
         return service.create(record);
     }
     //list all records
